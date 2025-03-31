@@ -79,7 +79,7 @@ export default function Testimonials() {
 
                 {/* Profile section */}
                 <div className="flex items-center mb-6">
-                  <div className="relative">
+                  <div className="relative w-16 h-16 rounded-full">
                     <div className="w-16 h-16 rounded-full flex items-center justify-center overflow-hidden bg-gradient-to-br ring-2 ring-slate-700 group-hover:ring-indigo-500/30 transition-all duration-300">
                       <div
                         className={`absolute inset-0 bg-gradient-to-br ${testimonial.avatarColor} opacity-20 group-hover:opacity-30 transition-opacity duration-300`}

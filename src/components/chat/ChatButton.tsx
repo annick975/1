@@ -30,7 +30,7 @@ export default function ChatButton({ onClick, isOpen }: ChatButtonProps) {
         animate={{ opacity: 1 }}
         className="absolute -top-2 -right-2 w-5 h-5 bg-indigo-600 text-white text-xs rounded-full flex items-center justify-center"
       >
-        1
+        AI
       </motion.span>
     </motion.button>
   );

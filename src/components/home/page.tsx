@@ -1,14 +1,125 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { SiPython, SiReact, SiTypescript, SiJavascript } from "react-icons/si";
-import { FaJava, FaGithub, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import {
+  FaGithub,
+  FaLinkedinIn,
+  FaTwitter,
+  FaJava,
+  FaKey,
+  FaLock,
+  FaNetworkWired,
+  FaNode,
+} from "react-icons/fa";
 import { motion } from "framer-motion";
+import {
+  SiLinux,
+  SiGnubash,
+  SiHtml5,
+  SiCss3,
+  SiJavascript,
+  SiTailwindcss,
+  SiBootstrap,
+  SiReact,
+  SiExpress,
+  SiMongodb,
+  SiPhp,
+  SiPython,
+  SiMysql,
+  SiTypescript,
+} from "react-icons/si";
+import { TbBrandGolang } from "react-icons/tb";
 
 const phrases = [
   "Cybersecurity Specialist",
   "Frontend Developer",
   "Backend Developer",
+];
+
+interface Skill {
+  name: string;
+  icon: JSX.Element;
+  level?: number;
+}
+
+interface SkillCategory {
+  category: string;
+  skills: Skill[];
+}
+
+const skillCategories: SkillCategory[] = [
+  {
+    category: "Frontend",
+    skills: [
+      { name: "React", icon: <SiReact className="w-5 h-5" />, level: 90 },
+      {
+        name: "TypeScript",
+        icon: <SiTypescript className="w-5 h-5" />,
+        level: 85,
+      },
+      {
+        name: "JavaScript",
+        icon: <SiJavascript className="w-5 h-5" />,
+        level: 90,
+      },
+      { name: "HTML", icon: <SiHtml5 className="w-5 h-5" />, level: 95 },
+      { name: "CSS", icon: <SiCss3 className="w-5 h-5" />, level: 90 },
+      {
+        name: "Tailwind",
+        icon: <SiTailwindcss className="w-5 h-5" />,
+        level: 85,
+      },
+      {
+        name: "Bootstrap",
+        icon: <SiBootstrap className="w-5 h-5" />,
+        level: 80,
+      },
+    ],
+  },
+  {
+    category: "Cybersecurity",
+    skills: [
+      { name: "Linux", icon: <SiLinux className="w-5 h-5" />, level: 90 },
+      {
+        name: "Bash Scripting",
+        icon: <SiGnubash className="w-5 h-5" />,
+        level: 85,
+      },
+      { name: "PKI", icon: <FaKey className="w-5 h-5" />, level: 80 },
+      {
+        name: "Penetration Testing",
+        icon: <FaLock className="w-5 h-5" />,
+        level: 75,
+      },
+      {
+        name: "DNS Sec",
+        icon: <FaNetworkWired className="w-5 h-5" />,
+        level: 85,
+      },
+    ],
+  },
+
+  {
+    category: "Backend",
+    skills: [
+      { name: "Java", icon: <FaJava className="w-5 h-5" />, level: 85 },
+      { name: "Python", icon: <SiPython className="w-5 h-5" />, level: 80 },
+      { name: "Node.js", icon: <FaNode className="w-5 h-5" />, level: 85 },
+      {
+        name: "Express.js",
+        icon: <SiExpress className="w-5 h-5" />,
+        level: 80,
+      },
+      { name: "MongoDB", icon: <SiMongodb className="w-5 h-5" />, level: 75 },
+      { name: "PHP", icon: <SiPhp className="w-5 h-5" />, level: 70 },
+      { name: "MySQL", icon: <SiMysql className="w-5 h-5" />, level: 80 },
+      {
+        name: "Golang",
+        icon: <TbBrandGolang className="w-5 h-5" />,
+        level: 65,
+      },
+    ],
+  },
 ];
 
 export default function Home() {
@@ -17,6 +128,7 @@ export default function Home() {
   const [deleting, setDeleting] = useState(false);
   const [letterIndex, setLetterIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   const typingSpeed = 100;
@@ -206,43 +318,74 @@ export default function Home() {
                     Technical Skills
                   </h3>
 
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {[
-                      { Icon: SiReact, name: "React", level: 90 },
-                      { Icon: FaJava, name: "Java", level: 85 },
-                      { Icon: SiPython, name: "Python", level: 80 },
-                      { Icon: SiTypescript, name: "TypeScript", level: 85 },
-                      { Icon: SiJavascript, name: "JavaScript", level: 90 },
-                    ].map(({ Icon, name, level }, index) => (
-                      <div key={name} className="flex flex-col items-center">
-                        <div className="relative mb-3">
-                          <div className="w-14 h-14 rounded-full bg-slate-800 flex items-center justify-center">
-                            <Icon className="w-6 h-6 text-indigo-400" />
-                          </div>
-                          <svg className="absolute -top-1 -right-1 -left-1 -bottom-1 h-16 w-16">
-                            <circle
-                              className="text-slate-700"
-                              strokeWidth="2"
-                              stroke="currentColor"
-                              fill="transparent"
-                              r="15"
-                              cx="32"
-                              cy="32"
-                            />
-                            <circle
-                              className="text-indigo-500"
-                              strokeWidth="2"
-                              strokeDasharray={`${level} 100`}
-                              strokeLinecap="round"
-                              stroke="currentColor"
-                              fill="transparent"
-                              r="15"
-                              cx="32"
-                              cy="32"
-                            />
-                          </svg>
+                  {/* Tabs */}
+                  <div className="flex space-x-1 border-b border-slate-800">
+                    {skillCategories.map((category, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setActiveTab(index)}
+                        className={`relative py-2 px-4 text-sm font-medium transition-colors duration-300 ${
+                          activeTab === index
+                            ? "text-indigo-400"
+                            : "text-slate-400 hover:text-white"
+                        }`}
+                      >
+                        {category.category}
+                        {activeTab === index && (
+                          <motion.div
+                            layoutId="activeTabIndicator"
+                            className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-500 to-cyan-500"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                          />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Skills Content */}
+                  <div className="space-y-3 min-h-[280px]">
+                    {skillCategories.map((category, categoryIndex) => (
+                      <div
+                        key={categoryIndex}
+                        className={`${
+                          activeTab === categoryIndex ? "block" : "hidden"
+                        }`}
+                      >
+                        <div className="grid grid-cols-1 gap-3">
+                          {category.skills.map((skill, skillIndex) => (
+                            <motion.div
+                              key={skillIndex}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: skillIndex * 0.1 }}
+                              className="group flex items-center justify-between p-3 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-indigo-500/30 transition-all duration-300"
+                            >
+                              <div className="flex items-center space-x-3">
+                                <span className="text-indigo-400 group-hover:text-indigo-300 transition-colors duration-300">
+                                  {skill.icon}
+                                </span>
+                                <span className="text-slate-300 group-hover:text-white transition-colors duration-300">
+                                  {skill.name}
+                                </span>
+                              </div>
+                              {skill.level && (
+                                <div className="flex items-center">
+                                  <div className="w-20 h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                                    <div
+                                      className="h-full bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full"
+                                      style={{ width: `${skill.level}%` }}
+                                    />
+                                  </div>
+                                  <span className="text-xs text-slate-400 ml-2">
+                                    {skill.level}%
+                                  </span>
+                                </div>
+                              )}
+                            </motion.div>
+                          ))}
                         </div>
-                        <span className="text-sm text-slate-300">{name}</span>
                       </div>
                     ))}
                   </div>
