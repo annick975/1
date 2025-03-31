@@ -1,8 +1,11 @@
+"use client";
+
 import React, { useState, FormEvent } from "react";
 import { useChatStore } from "@/store/chatStore";
 import { FaPaperPlane } from "react-icons/fa";
+import { motion } from "framer-motion";
 
-const ChatInput: React.FC = () => {
+export default function ChatInput() {
   const [input, setInput] = useState("");
   const { addMessage, setLoading, setError, getApiMessages, isLoading } =
     useChatStore();
@@ -64,18 +67,18 @@ const ChatInput: React.FC = () => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Type your message..."
-        className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="flex-1 p-3 bg-slate-800/50 text-white border border-slate-700 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 placeholder-slate-400"
         disabled={isLoading}
       />
-      <button
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         type="submit"
         disabled={!input.trim() || isLoading}
-        className="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-700 disabled:opacity-50 transition-colors"
+        className="bg-gradient-to-r from-indigo-500 to-cyan-500 text-white p-3 rounded-lg hover:shadow-lg hover:shadow-indigo-500/25 focus:outline-none disabled:opacity-50 transition-all duration-300"
       >
-        <FaPaperPlane />
-      </button>
+        <FaPaperPlane className={isLoading ? "animate-pulse" : ""} />
+      </motion.button>
     </form>
   );
-};
-
-export default ChatInput;
+}

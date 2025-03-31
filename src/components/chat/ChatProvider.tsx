@@ -20,9 +20,7 @@ export const useChat = () => {
   return context;
 };
 
-export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const clearMessages = useChatStore((state) => state.clearMessages);
 
@@ -40,4 +38,4 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({
       <ChatWindow isOpen={isOpen} onClose={toggleChat} />
     </ChatContext.Provider>
   );
-};
+}
