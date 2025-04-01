@@ -148,7 +148,7 @@ export default function Home() {
         }, deletingSpeed);
         return () => clearTimeout(timer);
       } else {
-        setDeleting(false)
+        setDeleting(false);
         setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
       }
     } else {
