@@ -46,7 +46,7 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white">
-                    Chat with Annick
+                    Chat with AnnickAI
                   </h3>
                   <div className="flex items-center">
                     <div className="w-2 h-2 rounded-full bg-green-500 mr-2"></div>

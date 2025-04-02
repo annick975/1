@@ -34,10 +34,10 @@ export default function ChatMessages() {
         </div>
         <div>
           <h3 className="text-white text-lg font-medium mb-1">
-            Welcome to my Portfolio Chat!
+            Welcome to my Portfolio AI Chat!
           </h3>
           <p className="text-slate-400 text-sm">
-            Ask me anything about my skills, projects, or how I can help you.
+            Ask me anything about Annick's skills, projects, if you want to know her more or how I can help you.
           </p>
         </div>
       </motion.div>
