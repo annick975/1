@@ -14,7 +14,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-slate-900 to-slate-950 text-white font-sans">
+    <footer className="bg-gradient-to-b from-slate-950 to-slate-900 text-white font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-16 border-b border-slate-800">
@@ -56,29 +56,25 @@ export default function Footer() {
               <div className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-gradient-to-r from-indigo-500 to-cyan-500"></div>
             </h3>
             <ul className="space-y-3">
-              {[
-                "Home",
-               
-                "Projects",
-                "Testimonials",
-                "Contact",
-              ].map((item, index) => (
-                <motion.li
-                  key={item}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
-                  className="transform hover:translate-x-2 transition-transform duration-300"
-                >
-                  <a
-                    href={`#${item}`}
-                    className="text-slate-400 hover:text-indigo-400 transition duration-300 flex items-center gap-2"
+              {["Home", "Projects", "Testimonials", "Contact"].map(
+                (item, index) => (
+                  <motion.li
+                    key={item}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
+                    className="transform hover:translate-x-2 transition-transform duration-300"
                   >
-                    <span className="h-px w-4 bg-indigo-500/50"></span>
-                    {item}
-                  </a>
-                </motion.li>
-              ))}
+                    <a
+                      href={`#${item}`}
+                      className="text-slate-400 hover:text-indigo-400 transition duration-300 flex items-center gap-2"
+                    >
+                      <span className="h-px w-4 bg-indigo-500/50"></span>
+                      {item}
+                    </a>
+                  </motion.li>
+                )
+              )}
             </ul>
           </motion.div>
 

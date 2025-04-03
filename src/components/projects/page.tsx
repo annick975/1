@@ -4,10 +4,15 @@ import { FiExternalLink, FiGithub } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 interface ProjectCardProps {
-  projectNames: string[];
+  projects: Array<{
+    name: string;
+    sourceCodeUrl: string;
+    liveDemoUrl: string;
+    description?: string;
+  }>;
 }
 
-export default function Projects({ projectNames }: ProjectCardProps) {
+export default function Projects({ projects }: ProjectCardProps) {
   return (
     <section
       id="Projects"
@@ -20,11 +25,11 @@ export default function Projects({ projectNames }: ProjectCardProps) {
         transition={{ duration: 0.6 }}
         className="max-w-6xl mx-auto text-center space-y-4 mb-16"
       >
-        <h1 className="text-5xl lg:text-6xl font-bold">
+        <h2 className="text-4xl font-bold mb-4">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
             Projects
           </span>
-        </h1>
+        </h2>
         <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full mx-auto" />
         <h2 className="text-slate-300 mb-12 max-w-2xl mx-auto">
           What I've been doing so far...
@@ -33,7 +38,7 @@ export default function Projects({ projectNames }: ProjectCardProps) {
 
       {/* Projects Grid */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projectNames.map((name, index) => (
+        {projects.map((project, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 20 }}
@@ -50,26 +55,30 @@ export default function Projects({ projectNames }: ProjectCardProps) {
 
               {/* Project Name */}
               <h3 className="text-xl font-semibold text-white mb-4 relative z-10">
-                {name}
+                {project.name}
               </h3>
 
-              {/* Placeholder for project description */}
+              {/* Project description */}
               <p className="text-slate-400 text-sm flex-grow">
-                Click to learn more about this project and see it in action.
+                {project.description ||
+                  "Click to learn more about this project and see it in action."}
               </p>
 
               {/* Links Section */}
-              <div className="flex items-center gap-4 mt-6 pt-4 border-t border-slate-700/30">
+              <div className="flex items-center gap-4 mt-6 pt-4 border-t border-slate-700/30 relative z-20">
                 <a
-                  href="/github.com/annick975"
+                  href={project.sourceCodeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-slate-400 hover:text-indigo-400 transition-colors"
                 >
                   <FiGithub className="w-4 h-4" />
-
                   <span>Source Code</span>
                 </a>
                 <a
-                  href="#"
+                  href={project.liveDemoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors ml-auto"
                 >
                   <span>Live Demo</span>
@@ -78,9 +87,9 @@ export default function Projects({ projectNames }: ProjectCardProps) {
               </div>
             </div>
 
-            {/* Hover Effects */}
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+            {/* Hover Effects - moved below the content */}
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent pointer-events-none" />
           </motion.div>
         ))}
       </div>
@@ -92,24 +101,28 @@ export default function Projects({ projectNames }: ProjectCardProps) {
         transition={{ duration: 0.6, delay: 0.6 }}
         className="text-center mt-16"
       >
-        <button className="group relative px-8 py-3 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg overflow-hidden hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300 hover:-translate-y-1">
-          <span className="relative flex items-center gap-2 text-white font-medium">
-            View More Projects
-            <svg
-              className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 7l5 5m0 0l-5 5m5-5H6"
-              />
-            </svg>
-          </span>
-        </button>
+        {" "}
+        <a href="https://github.com/annick975" target="blank">
+          {" "}
+          <button className="group relative px-8 py-3 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg overflow-hidden hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300 hover:-translate-y-1">
+            <span className="relative flex items-center gap-2 text-white font-medium">
+              View More Projects
+              <svg
+                className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </span>
+          </button>
+        </a>
       </motion.div>
     </section>
   );

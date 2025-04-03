@@ -39,7 +39,7 @@ export default function Testimonials() {
   return (
     <section
       id="Testimonials"
-      className="py-24 bg-gradient-to-b from-slate-900 to-slate-950 font-sans"
+      className="py-24 bg-gradient-to-b from-slate-950 to-slate-900 font-sans"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -53,9 +53,9 @@ export default function Testimonials() {
               Testimonials
             </span>
           </h2>
-          <p className="text-slate-300 text-xl">
+          <h2 className="text-slate-300 mb-12 max-w-2xl mx-auto">
             Want to know how working with me feels?
-          </p>
+          </h2>
           <div className="mt-4 w-24 h-1 bg-gradient-to-r from-indigo-500 to-cyan-500 mx-auto rounded-full" />
         </motion.div>
 

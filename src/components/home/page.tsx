@@ -219,7 +219,7 @@ export default function Home() {
               >
                 <div className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 backdrop-blur-sm border border-indigo-500/20">
                   <span className="text-xs font-medium text-indigo-300 tracking-wider">
-                    PORTFOLIO
+                    PERSONAL PORTFOLIO
                   </span>
                 </div>
               </motion.div>
@@ -286,7 +286,10 @@ export default function Home() {
                     Icon: FaLinkedinIn,
                     link: "https://www.linkedin.com/in/annick-niyubahwe-04898932a/",
                   },
-                  { Icon: FaInstagram, link: "https://instagram.com/n_tannick975" },
+                  {
+                    Icon: FaInstagram,
+                    link: "https://instagram.com/n_tannick975",
+                  },
                 ].map((social, index) => (
                   <a
                     key={index}
