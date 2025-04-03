@@ -61,10 +61,11 @@ export default function Projects({ projectNames }: ProjectCardProps) {
               {/* Links Section */}
               <div className="flex items-center gap-4 mt-6 pt-4 border-t border-slate-700/30">
                 <a
-                  href="#"
+                  href="/github.com/annick975"
                   className="flex items-center gap-2 text-sm text-slate-400 hover:text-indigo-400 transition-colors"
                 >
                   <FiGithub className="w-4 h-4" />
+
                   <span>Source Code</span>
                 </a>
                 <a

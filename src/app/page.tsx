@@ -13,9 +13,10 @@ const Main: FC = () => {
       <Home />
       <Projects
         projectNames={[
-          "VulSca: Vulnerability scanning tool",
+          "MoveIt: Easy-to-use task management tool",
           "AGRIBS: Platform for farmers",
-          "MEDIX: AI-Powered Medical platform",
+          "Coach: A tool for vulnerability analysis in GitHub repos",
+          "Remote Control: A tool for automating Cybersecurity operations",
         ]}
       />
       <Testimonials />

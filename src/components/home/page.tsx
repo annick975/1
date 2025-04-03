@@ -4,12 +4,12 @@ import { useState, useEffect, useRef } from "react";
 import {
   FaGithub,
   FaLinkedinIn,
-  FaTwitter,
   FaJava,
   FaKey,
   FaLock,
   FaNetworkWired,
   FaNode,
+  FaInstagram,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import {
@@ -281,12 +281,12 @@ export default function Home() {
                 className="flex gap-4 pt-6"
               >
                 {[
-                  { Icon: FaGithub, link: "https://github.com/yourusername" },
+                  { Icon: FaGithub, link: "https://github.com/annick975" },
                   {
                     Icon: FaLinkedinIn,
-                    link: "https://linkedin.com/in/yourusername",
+                    link: "https://www.linkedin.com/in/annick-niyubahwe-04898932a/",
                   },
-                  { Icon: FaTwitter, link: "https://twitter.com/yourusername" },
+                  { Icon: FaInstagram, link: "https://instagram.com/n_tannick975" },
                 ].map((social, index) => (
                   <a
                     key={index}
