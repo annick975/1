@@ -34,3 +34,37 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+# EmailJS Integration Setup
+
+To make the contact form work, you need to set up EmailJS:
+
+1. Create an account at [EmailJS](https://www.emailjs.com/)
+2. Create an Email Service:
+
+   - Go to "Email Services" tab
+   - Click "Add New Service"
+   - Choose your email provider (Gmail, Outlook, etc.)
+   - Follow the authentication steps
+
+3. Create an Email Template:
+
+   - Go to "Email Templates" tab
+   - Click "Create New Template"
+   - Design your template using these variables from the form:
+     - {{firstName}} - First name of the sender
+     - {{lastName}} - Last name of the sender
+     - {{email}} - Email of the sender
+     - {{phone}} - Phone number of the sender
+     - {{message}} - Message content
+
+4. Update your configuration:
+
+   - In `src/components/contact/page.tsx`, replace these values:
+     ```javascript
+     const serviceId = "YOUR_EMAILJS_SERVICE_ID"; // Found in the Email Services tab
+     const templateId = "YOUR_EMAILJS_TEMPLATE_ID"; // Found in the Email Templates tab
+     const publicKey = "YOUR_EMAILJS_PUBLIC_KEY"; // Found in Account > API Keys
+     ```
+
+5. Test your form to ensure it's working properly

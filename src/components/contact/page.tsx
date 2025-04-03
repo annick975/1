@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { FaPhone, FaLocationDot, FaBusinessTime } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -13,6 +14,12 @@ export default function Contact() {
     phone: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -21,10 +28,47 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+     
+      const serviceId = "service_e6monxk";
+      const templateId = "template_miewh8g";
+      const publicKey = "KgbgidvvLfIDBJ6Tv";
+
+      await emailjs.sendForm(
+        serviceId,
+        templateId,
+        formRef.current!,
+        publicKey
+      );
+
+      setSubmitStatus({
+        success: true,
+        message: "Message sent successfully! I'll get back to you soon via email.",
+      });
+
+      // Reset form after successful submission
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Email sending failed:", error);
+      setSubmitStatus({
+        success: false,
+        message:
+          "Failed to send message. Please try again or contact me directly via my socials.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -50,12 +94,13 @@ export default function Contact() {
               Feel free to send me a message
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="relative group">
                   <input
                     type="text"
                     required
+                    name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 focus:border-indigo-500/60 rounded-lg focus:outline-none transition-colors duration-300 text-white placeholder-transparent peer"
@@ -76,6 +121,7 @@ export default function Contact() {
                   <input
                     type="text"
                     required
+                    name="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 focus:border-indigo-500/60 rounded-lg focus:outline-none transition-colors duration-300 text-white placeholder-transparent peer"
@@ -98,6 +144,7 @@ export default function Contact() {
                   <input
                     type="email"
                     required
+                    name="email"
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 focus:border-indigo-500/60 rounded-lg focus:outline-none transition-colors duration-300 text-white placeholder-transparent peer"
@@ -118,6 +165,7 @@ export default function Contact() {
                   <input
                     type="tel"
                     required
+                    name="phone"
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 focus:border-indigo-500/60 rounded-lg focus:outline-none transition-colors duration-300 text-white placeholder-transparent peer"
@@ -139,6 +187,7 @@ export default function Contact() {
                 <textarea
                   required
                   rows={5}
+                  name="message"
                   value={formData.message}
                   onChange={handleChange}
                   className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 focus:border-indigo-500/60 rounded-lg focus:outline-none transition-colors duration-300 text-white placeholder-transparent peer"
@@ -154,15 +203,27 @@ export default function Contact() {
                   Message
                 </label>
               </div>
-
+              {submitStatus && (
+                <div
+                  className={`p-4 mb-6 rounded-lg ${
+                    submitStatus.success
+                      ? "bg-green-500/20 border border-green-500/30 text-green-300"
+                      : "bg-red-500/20 border border-red-500/30 text-red-300"
+                  }`}
+                >
+                  {submitStatus.message}
+                </div>
+              )}
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
+                disabled={isSubmitting}
                 className="w-full py-4 px-6 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg text-white font-semibold 
-                transform hover:-translate-y-1 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/30"
+                transform hover:-translate-y-1 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/30
+                disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                SEND MESSAGE
+                {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
               </motion.button>
             </form>
           </motion.div>
