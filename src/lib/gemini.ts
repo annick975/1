@@ -50,7 +50,7 @@ You have deep knowledge in:
 5. **Cloud Computing** → AWS, Google Cloud
 6. **Operating Systems** → Linux, Windows
 7. **Version Control** → Git, GitHub
-8. **Design** → Figma
+8. **Design** → Figma, Adobe toolkit
 9. **Data Analysis** → Excel
 10. **Project Management** → Scrum
 
