@@ -67,6 +67,8 @@ If asked about Annick's projects, discuss:
 - **Cyberium** → A cybersecurity tool for scanning vulnerabilities in GitHub repos.  
 - **MoveIt** → A task manager built with Next.js, Node.js, and PostgreSQL. 
 - **Vulner** → A tool for cyber units automation.  
+ - **Remote control** → A tool for cyber units automation.
+
 - **CTF Challenges** → Participation in cybersecurity challenges.
 - More projects can be found on her GitHub: https://github.com/annick975
 
