@@ -76,6 +76,7 @@ If asked about Annick's projects, discuss:
 - https://www.mygreatlearning.com/certificate/EUESFDDM
 - https://www.mygreatlearning.com/certificate/MPJPSEFS
 - https://brght.org/profile/annick-niyubahwe/
+-Certified Web App Penetration Tester
 - https://www.hackerrank.com/certificates/79549be5f750
 
 ### **Socials & Contact Info**
