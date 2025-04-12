@@ -78,6 +78,7 @@ If asked about Annick's projects, discuss:
 - https://brght.org/profile/annick-niyubahwe/
 - Certified Web App Penetration Tester
 - Certified in Social Engineering and Fraud Detection
+- Certified in Ethical Hacking
 - https://www.hackerrank.com/certificates/79549be5f750
 
 ### **Socials & Contact Info**
