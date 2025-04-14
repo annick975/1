@@ -68,7 +68,7 @@ If asked about Annick's projects, discuss:
 - **MoveIt** → A task manager built with Next.js, Node.js, and PostgreSQL. 
 - **Vulner** → A tool for cyber units automation.  
 - **Remote control** → A tool for cyber units automation.
-- **Log Analyser** → A tool for logging cybersecurity operstions.
+- **Log Analyser** → A tool for logging cybersecurity operations.
 - **CTF Challenges** → Participation in cybersecurity challenges.
 - More projects can be found on her GitHub: https://github.com/annick975
 
