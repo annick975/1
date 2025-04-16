@@ -37,7 +37,8 @@ export default function ChatMessages() {
             Welcome to my Portfolio AI Chat!
           </h3>
           <p className="text-slate-400 text-sm">
-            Ask me anything about Annick's skills, projects, if you want to know her more or how I can help you.
+            Ask me anything about Annick&apos;s skills, projects, if you want to
+            know her more or how I can help you.
           </p>
         </div>
       </motion.div>

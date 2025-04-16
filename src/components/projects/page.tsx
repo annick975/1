@@ -32,7 +32,7 @@ export default function Projects({ projects }: ProjectCardProps) {
         </h2>
         <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full mx-auto" />
         <h2 className="text-slate-300 mb-12 max-w-2xl mx-auto">
-          What I've been doing so far...
+          What I&apos;ve been doing so far...
         </h2>
       </motion.div>
 

@@ -127,8 +127,8 @@ export default function Home() {
   const [displayedText, setDisplayedText] = useState("");
   const [deleting, setDeleting] = useState(false);
   const [letterIndex, setLetterIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const [typingText, setTypingText] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   const typingSpeed = 100;
@@ -136,8 +136,6 @@ export default function Home() {
   const pauseDuration = 1800;
 
   useEffect(() => {
-    setIsVisible(true);
-
     const currentPhrase = phrases[currentPhraseIndex];
 
     if (deleting) {
@@ -165,15 +163,19 @@ export default function Home() {
     }
   }, [letterIndex, deleting, currentPhraseIndex]);
 
-  // Handle scroll animations
+  // Intersection Observer for section animation
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Save current section ref for cleanup
+            const currentSectionRef = sectionRef.current;
+            setActiveTab(0);
+          }
+        });
       },
-      { threshold: 0.1 }
+      { threshold: 0.3 }
     );
 
     if (sectionRef.current) {
@@ -181,6 +183,7 @@ export default function Home() {
     }
 
     return () => {
+      // Use the saved ref
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
       }
@@ -232,7 +235,7 @@ export default function Home() {
                 className="space-y-3"
               >
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                  Hello, I'm{" "}
+                  Hello, I&apos;m{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
                     Annick NIYUBAHWE
                   </span>
@@ -240,7 +243,7 @@ export default function Home() {
 
                 <div className="h-14 flex items-center">
                   <span className="text-2xl md:text-3xl font-medium text-indigo-200">
-                    <span className="inline-block mr-2">I'm a</span>
+                    <span className="inline-block mr-2">I&apos;m a</span>
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 border-r-2 border-indigo-400 pr-1">
                       {displayedText}
                     </span>
