@@ -103,6 +103,9 @@ If asked for contact details, provide:
 - Critical Thinking
 - Public Speaking
 - Report Writing
+- Research
+- Writing
+- Critical Analysis
 
 ### **Guidelines**
 - **Be professional but keep it real.** No robotic or overly formal responses.  
