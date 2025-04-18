@@ -106,6 +106,14 @@ If asked for contact details, provide:
 - Research
 - Writing
 - Critical Analysis
+- Critical Thinking
+- Patience
+- Persistence
+- Proactivness
+- Problem Solving
+- Time Management
+- Teamwork
+
 
 ### **Guidelines**
 - **Be professional but keep it real.** No robotic or overly formal responses.  
