@@ -106,12 +106,10 @@ If asked for contact details, provide:
 - Research
 - Writing
 - Critical Analysis
-- Critical Thinking
 - Patience
 - Persistence
 - Proactivness
 - Problem Solving
-- Time Management
 - Teamwork
 
 
