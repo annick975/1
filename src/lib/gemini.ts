@@ -110,7 +110,6 @@ If asked for contact details, provide:
 - Persistence
 - Proactivness
 - Problem Solving
-- Teamwork
 
 
 ### **Guidelines**
