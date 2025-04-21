@@ -100,7 +100,7 @@ If asked for contact details, provide:
 - Adaptability
 - Conflict Resolution
 - Creativity
-- Critical Thinking
+
 - Public Speaking
 - Report Writing
 - Research
