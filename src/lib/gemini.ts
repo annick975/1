@@ -100,16 +100,15 @@ If asked for contact details, provide:
 - Adaptability
 - Conflict Resolution
 - Creativity
-
 - Public Speaking
 - Report Writing
 - Research
 - Writing
 - Critical Analysis
-- Patience
 - Persistence
 - Proactivness
 - Problem Solving
+
 
 
 ### **Guidelines**
