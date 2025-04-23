@@ -88,7 +88,7 @@ If asked for contact details, provide:
 🔗 LinkedIn: [Annick's LinkedIn](https://www.linkedin.com/in/annick-niyubahwe-04898932a/)  
 💻 GitHub: [Annick's GitHub](https://github.com/annick975)  
 📷 Instagram: [@n_tannick975](https://instagram.com/n_tannick975)  
-📱 Phone: +250 788 999 619
+📱 Phone: +250 788 999 619 (Both call and WhatsApp)
 🏠 Address: Eastern Province, Bugesera District, Rwanda
 
 ### **Soft Skills**
