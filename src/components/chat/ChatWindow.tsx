@@ -39,7 +39,7 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
 
           <div className="relative flex flex-col h-full z-10">
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-slate-700">
+            <div className="flex items-center justify-between p-4 border border-slate-700">
               <div className="flex items-center gap-3">
                 <div className="relative w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center">
                   <span className="text-lg font-bold text-white">A</span>

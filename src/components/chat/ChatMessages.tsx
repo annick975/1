@@ -7,7 +7,7 @@ import { FaUser } from "react-icons/fa";
 import { RiRobot2Fill } from "react-icons/ri";
 
 export default function ChatMessages() {
-  const { messages, error } = useChatStore();
+  const { messages, error, isLoading } = useChatStore();
 
   if (error) {
     return (
@@ -94,6 +94,51 @@ export default function ChatMessages() {
           </div>
         </motion.div>
       ))}
+
+      {isLoading && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-start space-x-3"
+        >
+          <div className="w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-r from-slate-700 to-slate-800 text-indigo-300 border border-slate-600">
+            <RiRobot2Fill className="w-4.5 h-4.5" />
+          </div>
+          <div className="max-w-[80%] rounded-2xl p-3 bg-slate-800/70 text-slate-200 border border-slate-700">
+            <div className="flex space-x-2">
+              <motion.div
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="w-2 h-2 rounded-full bg-indigo-400"
+              />
+              <motion.div
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.2,
+                }}
+                className="w-2 h-2 rounded-full bg-indigo-400"
+              />
+              <motion.div
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.4,
+                }}
+                className="w-2 h-2 rounded-full bg-indigo-400"
+              />
+            </div>
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 }

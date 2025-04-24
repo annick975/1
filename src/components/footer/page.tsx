@@ -203,10 +203,7 @@ export default function Footer() {
           className="text-center py-8 text-slate-400 text-sm border-t border-slate-800 space-y-2"
         >
           <p>&copy; {new Date().getFullYear()} Annick. All rights reserved.</p>
-          <p className="flex items-center justify-center gap-2">
-            Made with <span className="text-red-500 animate-pulse">❤</span> by
-            Annick
-          </p>
+          
         </motion.div>
       </div>
     </footer>
