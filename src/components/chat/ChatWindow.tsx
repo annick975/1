@@ -3,6 +3,7 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
 
@@ -29,11 +30,15 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
             {/* Header */}
             <div className="flex items-center justify-between p-4 border border-slate-700">
               <div className="flex items-center gap-3">
-                <img
-                  src="/logo.png"
-                  alt="Annick Logo"
-                  className="w-10 h-10 rounded-full"
-                />
+                <div className="relative w-10 h-10 rounded-full overflow-hidden">
+                  <Image
+                    src="/logo.png"
+                    alt="Annick Logo"
+                    width={40}
+                    height={40}
+                    className="rounded-full"
+                  />
+                </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white">
                     Chat with AnnickAI

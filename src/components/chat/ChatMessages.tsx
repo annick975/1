@@ -87,16 +87,16 @@ const processTextFormatting = (
 ) => {
   // Process regular URLs
   const urlRegex = /(https?:\/\/[^\s]+)/g;
-  let parts = text.split(urlRegex);
+  const parts = text.split(urlRegex);
   const urls = text.match(urlRegex) || [];
 
   // Process parts for placeholders, bold, and italic formatting
-  let result: React.ReactNode[] = [];
+  const result: React.ReactNode[] = [];
 
   parts.forEach((part, i) => {
     if (part.includes("__LINK_PLACEHOLDER_")) {
       // Handle placeholders (markdown links)
-      let segments = part.split(/(__LINK_PLACEHOLDER_\d+__)/);
+      const segments = part.split(/(__LINK_PLACEHOLDER_\d+__)/);
 
       segments.forEach((segment) => {
         if (segment.startsWith("__LINK_PLACEHOLDER_")) {
@@ -152,7 +152,7 @@ const processFormattingInText = (text: string, keyPrefix: string) => {
 
   // Process bold with ** or __
   const boldRegex = /(\*\*|__)(.*?)\1/g;
-  let boldParts = text.split(boldRegex);
+  const boldParts = text.split(boldRegex);
   let currentText = "";
 
   for (let i = 0; i < boldParts.length; i++) {
@@ -195,7 +195,7 @@ const processItalicInText = (text: string, keyPrefix: string) => {
   const result: React.ReactNode[] = [];
   // Process italic with * or _
   const italicRegex = /(\*|_)(.*?)\1/g;
-  let italicParts = text.split(italicRegex);
+  const italicParts = text.split(italicRegex);
 
   let currentText = "";
   for (let i = 0; i < italicParts.length; i++) {

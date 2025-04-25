@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   Facebook,
   Linkedin,
@@ -26,8 +27,14 @@ export default function Footer() {
             className="space-y-6"
           >
             <div className="flex items-center group">
-              <div className="relative">
-               <img src="/logo.png" alt="Annick Logo" className="w-10 h-10 rounded-full" />
+              <div className="relative w-10 h-10 rounded-full overflow-hidden">
+                <Image
+                  src="/logo.png"
+                  alt="Annick Logo"
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
               </div>
               <span className="text-3xl font-bold ml-3 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
                 Annick
@@ -198,7 +205,6 @@ export default function Footer() {
           className="text-center py-8 text-slate-400 text-sm border-t border-slate-800 space-y-2"
         >
           <p>&copy; {new Date().getFullYear()} Annick. All rights reserved.</p>
-          
         </motion.div>
       </div>
     </footer>

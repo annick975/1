@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -56,9 +57,14 @@ export default function Header() {
             transition={{ duration: 0.5 }}
             className="flex items-center group"
           >
-            <div className="relative">
-          
-              <img src="/logo.png" alt="Annick Logo" className="w-10 h-10 rounded-full" />
+            <div className="relative w-10 h-10 rounded-full overflow-hidden">
+              <Image
+                src="/logo.png"
+                alt="Annick Logo"
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
             </div>
             <span className="ml-3 text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
               Annick
