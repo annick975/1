@@ -27,12 +27,7 @@ export default function Footer() {
           >
             <div className="flex items-center group">
               <div className="relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full blur opacity-50 group-hover:opacity-75 transition duration-300"></div>
-                <div className="relative w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center overflow-hidden">
-                  <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
-                    A
-                  </span>
-                </div>
+               <img src="/logo.png" alt="Annick Logo" className="w-10 h-10 rounded-full" />
               </div>
               <span className="text-3xl font-bold ml-3 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
                 Annick

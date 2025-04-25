@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import { useChatStore } from "@/store/chatStore";
 import { FaPaperPlane } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -20,6 +20,9 @@ export default function ChatInput() {
     addMessage(userMessage, "user");
     setInput("");
     setLoading(true);
+
+    // Dispatch custom event to trigger immediate scroll
+    window.dispatchEvent(new CustomEvent("chatMessageSent"));
 
     try {
       // Get messages in the correct format for the API
@@ -48,6 +51,9 @@ export default function ChatInput() {
       // Add assistant response to state
       addMessage(data.response, "assistant");
       setError(null);
+
+      // Dispatch custom event again after receiving response
+      window.dispatchEvent(new CustomEvent("chatMessageSent"));
     } catch (error) {
       console.error("Error sending message:", error);
       setError(

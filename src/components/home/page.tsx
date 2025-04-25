@@ -10,6 +10,7 @@ import {
   FaNetworkWired,
   FaNode,
   FaInstagram,
+
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import {
@@ -19,7 +20,6 @@ import {
   SiCss3,
   SiJavascript,
   SiTailwindcss,
-  SiBootstrap,
   SiReact,
   SiExpress,
   SiMongodb,
@@ -27,6 +27,7 @@ import {
   SiPython,
   SiMysql,
   SiTypescript,
+  SiNextdotjs
 } from "react-icons/si";
 import { TbBrandGolang } from "react-icons/tb";
 
@@ -51,50 +52,50 @@ const skillCategories: SkillCategory[] = [
   {
     category: "Frontend",
     skills: [
-      { name: "React", icon: <SiReact className="w-5 h-5" />, level: 90 },
+      { name: "React", icon: <SiReact className="w-5 h-5" />, level: 98 },
+      {
+        name: "Next.js",
+        icon: <SiNextdotjs className="w-5 h-5" />,
+        level: 98,
+      },
       {
         name: "TypeScript",
         icon: <SiTypescript className="w-5 h-5" />,
-        level: 85,
+        level: 95,
       },
       {
         name: "JavaScript",
         icon: <SiJavascript className="w-5 h-5" />,
-        level: 90,
+        level: 95,
       },
-      { name: "HTML", icon: <SiHtml5 className="w-5 h-5" />, level: 95 },
-      { name: "CSS", icon: <SiCss3 className="w-5 h-5" />, level: 90 },
       {
         name: "Tailwind",
         icon: <SiTailwindcss className="w-5 h-5" />,
-        level: 85,
+        level: 99,
       },
-      {
-        name: "Bootstrap",
-        icon: <SiBootstrap className="w-5 h-5" />,
-        level: 80,
-      },
+      { name: "HTML", icon: <SiHtml5 className="w-5 h-5" />, level: 99 },
+      { name: "CSS", icon: <SiCss3 className="w-5 h-5" />, level: 99 },
     ],
   },
   {
     category: "Cybersecurity",
     skills: [
-      { name: "Linux", icon: <SiLinux className="w-5 h-5" />, level: 90 },
+      { name: "Linux", icon: <SiLinux className="w-5 h-5" />, level: 97 },
       {
         name: "Bash Scripting",
         icon: <SiGnubash className="w-5 h-5" />,
-        level: 85,
+        level: 95,
       },
-      { name: "PKI", icon: <FaKey className="w-5 h-5" />, level: 80 },
-      {
-        name: "Penetration Testing",
-        icon: <FaLock className="w-5 h-5" />,
-        level: 75,
-      },
+      { name: "PKI", icon: <FaKey className="w-5 h-5" />, level: 95 },
       {
         name: "DNS Sec",
         icon: <FaNetworkWired className="w-5 h-5" />,
-        level: 85,
+        level: 95,
+      },
+      {
+        name: "Penetration Testing",
+        icon: <FaLock className="w-5 h-5" />,
+        level: 90,
       },
     ],
   },
@@ -102,21 +103,22 @@ const skillCategories: SkillCategory[] = [
   {
     category: "Backend",
     skills: [
-      { name: "Java", icon: <FaJava className="w-5 h-5" />, level: 85 },
-      { name: "Python", icon: <SiPython className="w-5 h-5" />, level: 80 },
-      { name: "Node.js", icon: <FaNode className="w-5 h-5" />, level: 85 },
+      { name: "Node.js", icon: <FaNode className="w-5 h-5" />, level: 97 },
       {
         name: "Express.js",
         icon: <SiExpress className="w-5 h-5" />,
-        level: 80,
+        level: 97,
       },
-      { name: "MongoDB", icon: <SiMongodb className="w-5 h-5" />, level: 75 },
-      { name: "PHP", icon: <SiPhp className="w-5 h-5" />, level: 70 },
-      { name: "MySQL", icon: <SiMysql className="w-5 h-5" />, level: 80 },
+      { name: "Java", icon: <FaJava className="w-5 h-5" />, level: 95 },
+      { name: "Python", icon: <SiPython className="w-5 h-5" />, level: 95 },
+      { name: "MySQL", icon: <SiMysql className="w-5 h-5" />, level: 95 },
+      { name: "MongoDB", icon: <SiMongodb className="w-5 h-5" />, level: 93 },
+      { name: "PHP", icon: <SiPhp className="w-5 h-5" />, level: 87 },
+
       {
         name: "Golang",
         icon: <TbBrandGolang className="w-5 h-5" />,
-        level: 65,
+        level: 75,
       },
     ],
   },
@@ -128,7 +130,6 @@ export default function Home() {
   const [deleting, setDeleting] = useState(false);
   const [letterIndex, setLetterIndex] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
-  const [typingText, setTypingText] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   const typingSpeed = 100;
@@ -169,8 +170,6 @@ export default function Home() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Save current section ref for cleanup
-            const currentSectionRef = sectionRef.current;
             setActiveTab(0);
           }
         });
@@ -178,14 +177,14 @@ export default function Home() {
       { threshold: 0.3 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      // Use the saved ref
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -401,7 +400,7 @@ export default function Home() {
                     <div className="grid grid-cols-3 gap-4">
                       {[
                         { label: "Projects", value: "20+" },
-                        { label: "Experience", value: "5+ Years" },
+                        { label: "Experience", value: "4+ Years" },
                         { label: "Clients", value: "15+" },
                       ].map((stat) => (
                         <div key={stat.label} className="text-center">

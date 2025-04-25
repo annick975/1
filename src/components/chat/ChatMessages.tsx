@@ -1,13 +1,254 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useChatStore } from "@/store/chatStore";
 import { motion } from "framer-motion";
 import { FaUser } from "react-icons/fa";
 import { RiRobot2Fill } from "react-icons/ri";
 
+// Function to parse and format text with links and basic markdown
+const renderFormattedText = (text: string) => {
+  // Process markdown-style links first: [text](url)
+  const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let processedText = text;
+  const markdownLinks: {
+    displayText: string;
+    url: string;
+    position: number;
+  }[] = [];
+
+  // Find all markdown-style links and collect their information
+  let match;
+  while ((match = markdownLinkRegex.exec(text)) !== null) {
+    markdownLinks.push({
+      displayText: match[1],
+      url: match[2],
+      position: match.index,
+    });
+  }
+
+  // Replace markdown links with placeholders to avoid conflicts with other regex
+  let placeholderIdx = 0;
+  for (const link of markdownLinks) {
+    const placeholder = `__LINK_PLACEHOLDER_${placeholderIdx++}__`;
+    processedText = processedText.replace(
+      `[${link.displayText}](${link.url})`,
+      placeholder
+    );
+  }
+
+  // Split the text into paragraphs to process lists
+  const paragraphs = processedText.split("\n\n");
+
+  // Process each paragraph for different formatting elements
+  const formattedParagraphs = paragraphs.map((paragraph, paragraphIndex) => {
+    // Check if this is a bullet point list
+    const listItems = paragraph.split("\n").filter((line) => line.trim());
+    const isList = listItems.every(
+      (item) => item.trim().startsWith("* ") || item.trim().startsWith("- ")
+    );
+
+    if (isList) {
+      // Return a formatted unordered list
+      return (
+        <ul
+          key={`p-${paragraphIndex}`}
+          className="list-disc pl-5 space-y-1 mb-3"
+        >
+          {listItems.map((item, itemIndex) => {
+            // Remove the bullet marker
+            const itemContent = item.trim().replace(/^[*-]\s+/, "");
+            // Process this list item content for formatting and links
+            return (
+              <li key={`li-${paragraphIndex}-${itemIndex}`}>
+                {processTextFormatting(itemContent, markdownLinks)}
+              </li>
+            );
+          })}
+        </ul>
+      );
+    } else {
+      // Process regular paragraph for formatting and links
+      return (
+        <p key={`p-${paragraphIndex}`} className="mb-3">
+          {processTextFormatting(paragraph, markdownLinks)}
+        </p>
+      );
+    }
+  });
+
+  return <>{formattedParagraphs}</>;
+};
+
+// Process text for formatting (bold, italic) and links
+const processTextFormatting = (
+  text: string,
+  markdownLinks: { displayText: string; url: string; position: number }[]
+) => {
+  // Process regular URLs
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  let parts = text.split(urlRegex);
+  const urls = text.match(urlRegex) || [];
+
+  // Process parts for placeholders, bold, and italic formatting
+  let result: React.ReactNode[] = [];
+
+  parts.forEach((part, i) => {
+    if (part.includes("__LINK_PLACEHOLDER_")) {
+      // Handle placeholders (markdown links)
+      let segments = part.split(/(__LINK_PLACEHOLDER_\d+__)/);
+
+      segments.forEach((segment) => {
+        if (segment.startsWith("__LINK_PLACEHOLDER_")) {
+          // Extract placeholder index
+          const idx = parseInt(
+            segment.match(/__LINK_PLACEHOLDER_(\d+)__/)?.[1] || "0"
+          );
+          const link = markdownLinks[idx];
+
+          result.push(
+            <a
+              key={`md-${i}-${idx}`}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:text-cyan-300 underline transition-colors"
+            >
+              {link.displayText}
+            </a>
+          );
+        } else if (segment) {
+          // Process bold and italic in text segments
+          result.push(...processFormattingInText(segment, `text-${i}`));
+        }
+      });
+    } else {
+      // Process bold and italic in regular text
+      result.push(...processFormattingInText(part, `text-${i}`));
+    }
+
+    // Add URL if exists
+    if (urls[i]) {
+      result.push(
+        <a
+          key={`url-${i}`}
+          href={urls[i]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-cyan-400 hover:text-cyan-300 underline transition-colors"
+        >
+          {urls[i]}
+        </a>
+      );
+    }
+  });
+
+  return result;
+};
+
+// Process bold and italic formatting within text
+const processFormattingInText = (text: string, keyPrefix: string) => {
+  const result: React.ReactNode[] = [];
+
+  // Process bold with ** or __
+  const boldRegex = /(\*\*|__)(.*?)\1/g;
+  let boldParts = text.split(boldRegex);
+  let currentText = "";
+
+  for (let i = 0; i < boldParts.length; i++) {
+    if (i % 3 === 0) {
+      // This is regular text or text after a bold section
+      currentText += boldParts[i];
+    } else if (i % 3 === 1) {
+      // This is the bold marker (** or __), skip it
+      continue;
+    } else {
+      // This is the bold content
+      if (currentText) {
+        // Process italic in the accumulated text before the bold
+        result.push(
+          ...processItalicInText(currentText, `${keyPrefix}-regular-${i}`)
+        );
+        currentText = "";
+      }
+      // Add the bold text
+      result.push(
+        <strong key={`${keyPrefix}-bold-${i}`}>
+          {processItalicInText(boldParts[i], `${keyPrefix}-bold-italic-${i}`)}
+        </strong>
+      );
+    }
+  }
+
+  // Process any remaining text
+  if (currentText) {
+    result.push(...processItalicInText(currentText, `${keyPrefix}-remaining`));
+  }
+
+  return result;
+};
+
+// Process italic formatting within text
+const processItalicInText = (text: string, keyPrefix: string) => {
+  if (!text) return [text];
+
+  const result: React.ReactNode[] = [];
+  // Process italic with * or _
+  const italicRegex = /(\*|_)(.*?)\1/g;
+  let italicParts = text.split(italicRegex);
+
+  let currentText = "";
+  for (let i = 0; i < italicParts.length; i++) {
+    if (i % 3 === 0) {
+      // Regular text
+      currentText += italicParts[i];
+    } else if (i % 3 === 1) {
+      // Italic marker (* or _), skip it
+      continue;
+    } else {
+      // Italic content
+      if (currentText) {
+        result.push(currentText);
+        currentText = "";
+      }
+      result.push(<em key={`${keyPrefix}-italic-${i}`}>{italicParts[i]}</em>);
+    }
+  }
+
+  // Add any remaining text
+  if (currentText) {
+    result.push(currentText);
+  }
+
+  return result;
+};
+
 export default function ChatMessages() {
   const { messages, error, isLoading } = useChatStore();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToLatest = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Scroll to bottom whenever messages change or when loading state changes
+  useEffect(() => {
+    scrollToLatest();
+  }, [messages, isLoading]);
+
+  // Add event listener for immediate scrolling when a message is sent
+  useEffect(() => {
+    const handleMessageSent = () => {
+      // Use setTimeout to ensure the DOM has updated
+      setTimeout(scrollToLatest, 0);
+    };
+
+    window.addEventListener("chatMessageSent", handleMessageSent);
+
+    return () => {
+      window.removeEventListener("chatMessageSent", handleMessageSent);
+    };
+  }, []);
 
   if (error) {
     return (
@@ -77,7 +318,11 @@ export default function ChatMessages() {
                 : "bg-slate-800/70 text-slate-200 border border-slate-700"
             }`}
           >
-            <p className="text-sm leading-relaxed">{message.content}</p>
+            <div className="text-sm leading-relaxed">
+              {message.role === "assistant"
+                ? renderFormattedText(message.content)
+                : message.content}
+            </div>
             <div
               className={`text-xs mt-1 opacity-70 text-right ${
                 message.role === "user" ? "text-indigo-100" : "text-slate-400"
@@ -139,6 +384,9 @@ export default function ChatMessages() {
           </div>
         </motion.div>
       )}
+
+      {/* Add a div at the end that we can scroll to */}
+      <div ref={messagesEndRef} />
     </div>
   );
 }

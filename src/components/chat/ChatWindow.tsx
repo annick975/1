@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import ChatMessages from "./ChatMessages";
@@ -12,18 +12,6 @@ interface ChatWindowProps {
 }
 
 export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      scrollToBottom();
-    }
-  }, [isOpen]);
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -41,9 +29,11 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
             {/* Header */}
             <div className="flex items-center justify-between p-4 border border-slate-700">
               <div className="flex items-center gap-3">
-                <div className="relative w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center">
-                  <span className="text-lg font-bold text-white">A</span>
-                </div>
+                <img
+                  src="/logo.png"
+                  alt="Annick Logo"
+                  className="w-10 h-10 rounded-full"
+                />
                 <div>
                   <h3 className="text-lg font-semibold text-white">
                     Chat with AnnickAI
@@ -68,7 +58,6 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
               <ChatMessages />
-              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}
