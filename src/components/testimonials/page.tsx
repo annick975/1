@@ -53,10 +53,11 @@ export default function Testimonials() {
               Testimonials
             </span>
           </h2>
+
+          <div className="mt-4 w-24 h-1 bg-gradient-to-r from-indigo-500 to-cyan-500 mx-auto rounded-full" />
           <h2 className="text-slate-300 mb-12 max-w-2xl mx-auto">
             Want to know how working with me feels?
           </h2>
-          <div className="mt-4 w-24 h-1 bg-gradient-to-r from-indigo-500 to-cyan-500 mx-auto rounded-full" />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
